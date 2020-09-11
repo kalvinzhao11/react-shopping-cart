@@ -17,8 +17,15 @@ function App() {
 
 	const addItem = item => {
 		// add the given item to the cart
-		setCart([...cart, item])
+		setCart([...cart, {...item, id: new Date()}])
 	};
+
+	const removeItem = item => {
+		const newCart = cart.filter(product => {
+			return product.id !== item
+		})
+		setCart(newCart)
+	}
 	
 
 	return (
@@ -33,7 +40,7 @@ function App() {
 					<Products />
 				</Route>
 			</Provider>
-			<CartContext.Provider value={{ cart }}>
+			<CartContext.Provider value={{ cart, removeItem }}>
 			<Route path="/cart">
 				<ShoppingCart />
 			</Route>
