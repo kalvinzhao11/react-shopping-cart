@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import data from './data';
 
@@ -26,6 +26,17 @@ function App() {
 		})
 		setCart(newCart)
 	}
+
+	useEffect(()=>{
+		const data = localStorage.getItem('cart')
+		if (data) {
+		  setCart(JSON.parse(data))
+		}
+	},[])
+
+	useEffect(()=>{
+		localStorage.setItem('cart', JSON.stringify(cart))
+	},[cart])
 	
 
 	return (
